@@ -66,7 +66,7 @@ By utilizing scikit-learn's logistic regression, I was able to leverage well-opt
 Implementing basic neural networks and training loops from scratch was invaluable for gaining a deep understanding of the underlying mechanics of model learning. However, after refactoring the code for efficiency and incorporating optimized libraries like scikit-learn, I achieved a significantly shorter runtime, reduced the number of required epochs 🤩, and improved the accuracy of the predicted probabilities.
 
 
-### Instructions to Run Each Implementation
+# Instructions to Run Each Implementation
 Dependencies:
 - Install `Python 3.x`(if not already installed).
 - Install the required libraries by running the following commands:
