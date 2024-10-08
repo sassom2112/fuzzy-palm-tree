@@ -1,72 +1,98 @@
-# Building and Training a Single Neuron Classifier for Binary Classification: 
-## Manual vs. Library-Based Approaches
-
-### Problem Introduction
+# Problem Introduction
 In this project, we're solving a binary classification problem to predict the color of wine (red or white) based on 11 chemical features such as acidity, residual sugar, alcohol content, and more. The target label is binary, where:
 
-+ 1 represents red wine
-+ 0 represents white wine
+- `1` represents red wine
+- `0` represents white wine
 
 The dataset includes two subsets (red and white wines), and the goal is to build a model that can accurately classify the wine color based on these features.
 
-### The project compares two approaches:
+# Approach and Iterations
+This project is broken down into three iterations, each representing a step forward in learning and understanding deep learning fundamentals:
 
-+ Manual Implementation of the classification model, including data splitting, standardization, and training.
-+ Library-based Implementation using popular machine learning tools like scikit-learn.
+## First Attempt: Manual Gradient Descent and Loss Calculation
+File: `Single_Neuron_Classifier_One`
 
-By comparing these two approaches, we aim to understand:
-+ How much control we gain by manually implementing machine learning steps.
-+ How using external libraries like scikit-learn can streamline the development process and help avoid potential errors or inefficiencies.
+In the first iteration, I built a logistic regression classifier from scratch and manually implemented gradient descent for model training.
 
-### Manual Implementation
-In this approach, we:
-+ Manually split the dataset into training and test sets using numpy.
-+ Manually standardize the features to prevent numerical instability during training.
-+ Implemented a Single Neuron Classifier using logistic regression to predict wine color. We use the binary cross-entropy loss and gradient descent to train the model.
 
-This approach demonstrates how to manually perform key tasks of machine learning, which offers more control and deeper insights into each step of the process. However, it is more error-prone and less efficient compared to using well-tested libraries.
+### What I Learned:
+- I manually implemented gradient descent, which gave me a understanding of how updates happen with respect to the weights and bias during training.
 
-### Library-based Implementation (scikit-learn)
-In this implementation, we:
+- I explored the structure of training loops, loss computation (using squared error), and how parameters are updated in each epoch.
 
-+ Use scikit-learn's train_test_split to handle data splitting, shuffling, and separation of training and test data.
-+ Use StandardScaler to standardize the features consistently.
-+ Use logistic regression from scikit-learn to build a model, automatically optimizing and performing prediction using simple, well-optimized functions.
+This approach helped me solidify my understanding of the training process in machine learning and provided insight into the limitations of manual implementation.
 
-This approach shows the convenience and reliability of using external libraries like scikit-learn, which reduce the likelihood of errors and significantly speed up the workflow.
+#### What Could Be Improved:
+While implementing the training loop was educational, manual loops for gradient updates were not as efficient as when I introduced libraries in later iterations.
+The Squared error loss is not well-suited for binary classification problems; instead, binary cross-entropy (log loss) is a better choice for classification tasks.
 
-## Instructions to Run Each Implementation
 
-To run both implementations, you'll need to set up the following dependencies:
+## Second Attempt: Binary Cross-Entropy Loss and Manual Train-Test Split
+File: `Single_Neuron_Classifier_Two`
 
-+ Install Python (if not already installed): Python 3.x is required.
-+ Install the necessary libraries. You can install these by running:
+In the second iteration, I introduced binary cross-entropy loss to my  classification problem which yielded similar results. I also implemented a manual train-test split for better validation and resulting in a faster runtime.
+
+### What I Learned:
+I introduced binary cross-entropy loss into the model, which is the appropriate loss function for binary classification tasks. I learned how to manually split the dataset into training and testing sets, ensuring proper evaluation of the model's performance.
+
+#### What Could Be Improved:
+The second iteration give me faster runtimes but resulted in similar predicitons. I realized that moving to a machine learning framework would yield better results and wow did the model improve on the third attempt!!!
+
+## Third Attempt: Scaling and Using train_test_split (Library-based Implementation)
+File: `Single_Neuron_Classifier_using_sklearn`
+
+In the final iteration, I adopted the use of the scikit-learn library to handle scaling, data splitting, and logistic regression. This approach was much more efficient.
+
+### What I Learned:
+I used scikit-learn's train_test_split to simplify data splitting, ensuring randomization and proper separation of training and testing data.
+
+I incorporated standardization with StandardScaler, which drasticlly improved model convergence during training.
+
+By utilizing scikit-learn's logistic regression, I was able to leverage well-optimized functions to reduce implementation complexity and streamline the workflow.
+
+### Where to next?
+- Using mini-batch gradient descent or stochastic gradient descent (SGD) for better performance on larger datasets.
+- Further exploration into visualizing more metrics (such as accuracy during training) and comparing training and validation performance would help detect overfitting.
+- Explore Deep Learning Frameworks like (PyTorch or TensorFlow) to build more complex models while still understanding the underlying operations.
+- Introduce Regularization: To prevent overfitting, I will explore techniques like L2 regularization, dropout, and early stopping.
+- Implement multilayer perceptrons (MLPs) to explore the benefits of deeper architectures.
+- Hyperparameter Tuning: I plan to experiment more with learning rates, batch sizes, and the number of epochs to optimize model performance.
+
+# Overall Learning
+<img src="data/2024-10-08%2012_11_20-Classifier_NLL_Loss.ipynb%20-%20Colab.png" alt="NLL" width="200"/>
+<img src="data/2024-10-08 12_08_27-Single Neuron Classifier.ipynb - Colab.png" alt="NLL" width="200"/>
+<img src="data/2024-10-08 12_15_38-Single Neuron Classifier using sklearn.ipynb - Colab.png" alt="NLL" width="200"/>
+
+Implementing basic neural networks and training loops from scratch was invaluable for gaining a deep understanding of the underlying mechanics of model learning. However, after refactoring the code for efficiency and incorporating optimized libraries like scikit-learn, I achieved a significantly shorter runtime, reduced the number of required epochs 🤩, and improved the accuracy of the predicted probabilities.
+
+
+# Instructions to Run Each Implementation
+Dependencies:
+- Install `Python 3.x`(if not already installed).
+- Install the required libraries by running the following commands:
 ```bash
-pip install numpy pandas matplotlib
+pip install numpy pandas matplotlib scikit-learn
 ```
 
-If you're running the library-based implementation, you also need scikit-learn:
-```bash
-pip install scikit-learn
-```
-
-### Running the Manual Implementation
-Download the dataset (winequality-red.csv and winequality-white.csv) in `./data/` directory. Each notebook has a upload snippet where you can upload your code directly on youre notebook as long as the dataset is downloaded loacally:
+#### Running the First and Second Iterations (Manual Implementations):
+Download the dataset `(winequality-red.csv and winequality-white.csv)` and upload after you open the Notebook to run it using this Colab snippet:
 ```python
 from google.colab import files
 uploaded = files.upload()
 ```
+#### These notebooks will:
 
-Open the Jupyter notebook (manual_wine_classification.ipynb).
+- Manually split the dataset, standardize the data, and train the logistic regression model without the use of scikit-learn.
+- Output the training loss and the final test accuracy.
 
-Run the notebook cells in order. This notebook manually splits the dataset, standardizes the data, and trains a logistic regression model without the use of scikit-learn.
+#### Running the Third Iteration (Library-based Implementation with scikit-learn):
+- This notebook uses scikit-learn's built-in tools to handle data splitting, standardization, and logistic regression.
 
-The notebook will output the loss during training and the final test accuracy.
+- The model will display:
+  - loss during training.
+  - The final test accuracy after training.
 
-### Running the Library-based Implementation
+# Conclusion
+This project highlights the progression from manual implementation of machine learning algorithms to utilizing established libraries such as scikit-learn. 
 
-Open the Jupyter notebook (sklearn_wine_classification.ipynb).
-
-This notebook uses scikit-learn's built-in tools to split the dataset, standardize the data, and train a logistic regression model.
-
-The notebook will display the model's performance, including the final test accuracy.
+Each iteration builds upon the previous, enhancing both understanding and model performance, while progressively reducing the complexity of implementation.
